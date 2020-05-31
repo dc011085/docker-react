@@ -1,11 +1,25 @@
-language: generic 
+language: generic
 sudo: required
 
 services:
   - docker
 
 before_install:
-  - docker build -t dc011085/docker-react -f Dockerfile.dev .
+  - docker build -t stephengrider/docker-react -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true dc011085/docker-react npm run test
+  - docker run -e CI=true stephengrider/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "DockerReact"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-eu-west-2-223144656949"
+  bucket_path: "dockerReact"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: 
+    secure: "$AWS_SECRET_KEY"
+   
