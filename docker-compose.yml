@@ -16,4 +16,4 @@ services:
          volumes:
             - /app/node_modules
             - .:/app
-         command: ["npm", "run", "test"]   i need to push it to check the change
+         command: ["npm", "run", "test"]
